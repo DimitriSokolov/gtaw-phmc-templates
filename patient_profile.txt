@@ -1,0 +1,24 @@
+[divbox=grey][center][img]https://i.imgur.com/s5acD6S.png[/img][/center][/divbox]
+[divbox=lightgrey] [color=#800000][b]Section 1. Medical Patient Record[/b][/color] [/divbox]
+[divbox=white] [list=none] [b]1.1.[/b] Patient Number: ${this.ptprof_num}
+[/list][/divbox]
+[divbox=lightgrey] [color=#800000][b]Section 2. Patient Demographics[/b][/color] [/divbox]
+[divbox=white] [list=none] [b]2.1.[/b] Full Name: ${this.ptprof_fname}
+[b]2.2.[/b] Sex:
+[list=none]${this.ptprof_sexm} Male
+${this.ptprof_sexf} Female[/list]
+[b]2.3.[/b] Date Of Birth: ${moment(new Date(this.ptprof_dob)).format("DD/MMM/YYYY").toUpperCase()}
+[b]2.4.[/b] Telephone Number: ${this.ptprof_ph}
+[b]2.5.[/b] E-Mail: ${this.ptprof_email}
+[b]2.6.[/b] Home Address: ${this.ptprof_addr}
+[/list][/divbox]
+[divbox=lightgrey] [color=#800000][b]Section 3. Emergency Contact Information[/b][/color] [/divbox]
+[divbox=white] [list=none] [b]3.1.[/b] Contact Name: ${this.ptprof_contactname}
+[b]3.2.[/b] Telephone Number: ${this.ptprof_contactph}
+[b]3.3.[/b] Relation to Patient: ${this.ptprof_contactrelation}
+[/list][/divbox]
+[divbox=lightgrey] [color=#800000][b]Section 4. Health Status Information[/b][/color] [/divbox]
+[divbox=white] [list=none] [b]4.1.[/b] Blood type: ${this.ptprof_bloodtype}
+[b]4.2.[/b] Known Chronic Diseases: ${this.ptprof_knowndiseases}
+[b]4.3.[/b] Known Allergies: ${this.ptprof_knownallergies}
+[/list][/divbox]

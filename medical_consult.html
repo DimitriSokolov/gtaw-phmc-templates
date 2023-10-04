@@ -1,0 +1,230 @@
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+
+    <div id="app" style="margin: 20px 0px 0px 30px;">
+        <h3>PERSONAL INFORMATION</h3>
+        Medical Record Number: <input type="text" v-model="mc_mrnum"><br>
+        Full Name: <input type="text" v-model="mc_fullname"><br>
+        Date of Birth: <input type="date" v-model="mc_dob"><br>
+        <h3>PATIENT MEASUREMENTS</h3>
+        Height: <input type="text" v-model="mc_height"><br>
+        Weight: <input type="text" v-model="mc_weight"><br>
+        <h3>VITALS</h3>
+        Body Temperature: <input type="text" v-model="mc_bodytemp"><br>
+        Heart Rate: <input type="text" v-model="mc_heartrate"><br>
+        Respiratory Rate: <input type="text" v-model="mc_resprate"><br>
+        Pulse Oximetry: <input type="text" v-model="mc_pulseoxi"><br>
+        Blood Pressure: <input type="text" v-model="mc_bloodpressure"><br>
+        <h3>MEDICATIONS</h3>
+        Current Medications: <input type="text" v-model="mc_currentmedications"><br>
+        New Medications: <input type="text" v-model="mc_newmedications"><br>
+        <h3>DIAGNOSIS</h3>
+        Viewed For: <input type="text" v-model="mc_viewedfor"><br>
+        Diagnosed With: <input type="text" v-model="mc_diagnosedwith"><br>
+        Treatment: <input type="text" v-model="mc_treatment"><br>
+        Prescription: <input type="text" v-model="mc_prescription"><br>
+        <h3>SUMMARY OF CONSULTATION</h3>
+        Summary<br> 
+        <textarea cols="90" rows="30" v-model="mc_summary"></textarea>
+        <h3>PERSON IN CHARGE OF THE CONSULTATION</h3>
+        Full Name (Signature): <input type="text" v-model="mc_signature"><br>
+        Full Name (Print): <input type="text" v-model="mc_picfullname"><br>
+        Date: <input type="date" v-model="mc_date"><br>
+
+
+        <button @click="generateBBCode()">Copy BBcode</button>
+        <button @click="resetAll()">Reset All</button>
+
+    </div>
+
+
+
+
+    <script>
+
+
+
+        function convertTime(dateTime, format) {
+            let result = moment(new Date(dateTime)).format(format).toUpperCase();
+
+            if (result == "INVALID DATE")
+                return ""
+
+            return result
+
+        }
+
+        const app = Vue.createApp({
+
+
+            async created() {
+
+
+            },
+
+            data() {
+                return {
+
+                    mc_mrnum: this.returnIfNotNull(localStorage.getItem("mc_mrnum")),
+                    mc_fullname: this.returnIfNotNull(localStorage.getItem("mc_fullname")),
+                    mc_dob: this.returnIfNotNull(localStorage.getItem("mc_dob")),
+                    mc_height: this.returnIfNotNull(localStorage.getItem("mc_height")),
+                    mc_weight: this.returnIfNotNull(localStorage.getItem("mc_weight")),
+                    mc_bodytemp: this.returnIfNotNull(localStorage.getItem("mc_bodytemp")),
+                    mc_heartrate: this.returnIfNotNull(localStorage.getItem("mc_heartrate")),
+                    mc_resprate: this.returnIfNotNull(localStorage.getItem("mc_resprate")),
+                    mc_pulseoxi: this.returnIfNotNull(localStorage.getItem("mc_pulseoxi")),
+                    mc_bloodpressure: this.returnIfNotNull(localStorage.getItem("mc_bloodpressure")),
+                    mc_currentmedications: this.returnIfNotNull(localStorage.getItem("mc_currentmedications")),
+                    mc_newmedications: this.returnIfNotNull(localStorage.getItem("mc_newmedications")),
+                    mc_viewedfor: this.returnIfNotNull(localStorage.getItem("mc_viewedfor")),
+                    mc_diagnosedwith: this.returnIfNotNull(localStorage.getItem("mc_diagnosedwith")),
+                    mc_treatment: this.returnIfNotNull(localStorage.getItem("mc_treatment")),
+                    mc_prescription: this.returnIfNotNull(localStorage.getItem("mc_prescription")),
+                    mc_summary: this.returnIfNotNull(localStorage.getItem("mc_summary")),
+                    mc_signature: this.returnIfNotNull(localStorage.getItem("mc_signature")),
+                    mc_picfullname: this.returnIfNotNull(localStorage.getItem("mc_picfullname")),
+                    mc_date: this.returnIfNotNull(localStorage.getItem("mc_date")),
+
+
+                }
+            },
+
+            mounted() {
+                this.loadCookies();
+            },
+
+            methods: {
+
+
+                resetAll() {
+                    localStorage.removeItem("mc_mrnum")
+                    localStorage.removeItem("mc_fullname")
+                    localStorage.removeItem("mc_dob")
+                    localStorage.removeItem("mc_height")
+                    localStorage.removeItem("mc_weight")
+                    localStorage.removeItem("mc_bodytemp")
+                    localStorage.removeItem("mc_heartrate")
+                    localStorage.removeItem("mc_resprate")
+                    localStorage.removeItem("mc_pulseoxi")
+                    localStorage.removeItem("mc_bloodpressure")
+                    localStorage.removeItem("mc_currentmedications")
+                    localStorage.removeItem("mc_newmedications")
+                    localStorage.removeItem("mc_viewedfor")
+                    localStorage.removeItem("mc_diagnosedwith")
+                    localStorage.removeItem("mc_treatment")
+                    localStorage.removeItem("mc_prescription")
+                    localStorage.removeItem("mc_summary")
+                    localStorage.removeItem("mc_signature")
+                    localStorage.removeItem("mc_picfullname")
+                    localStorage.removeItem("mc_date")
+
+                    location.reload();
+
+                },
+
+                returnIfNotNull(field) {
+
+                    if (field == null) {
+                        return "";
+                    }
+
+                    return field;
+
+                },
+
+
+                async generateBBCode() {
+
+
+                    /*
+
+                    When generating BBCode ensure that you transform the output from ptprof_gender to ptprof_sexm or ptprof_sexf, one should be [cb][/cb] and the other [cbc][/cbc]
+
+                    */
+
+
+                    var bbcode_unformatted;
+                    await fetch('medical_consult.txt').then((res) => res.text()).then(data => bbcode_unformatted = data);
+
+                    var bbcode = eval(`\`${bbcode_unformatted}\``);
+
+
+
+                    navigator.clipboard.writeText(bbcode);
+
+
+
+                },
+                loadCookies: function () {
+                    try {
+                        setInterval(() => {
+
+
+                            localStorage.setItem("mc_mrnum", this.returnIfNotNull(this.mc_mrnum))
+                            localStorage.setItem("mc_fullname", this.returnIfNotNull(this.mc_fullname))
+                            localStorage.setItem("mc_dob", this.returnIfNotNull(this.mc_dob))
+                            localStorage.setItem("mc_height", this.returnIfNotNull(this.mc_height))
+                            localStorage.setItem("mc_weight", this.returnIfNotNull(this.mc_weight))
+                            localStorage.setItem("mc_bodytemp", this.returnIfNotNull(this.mc_bodytemp))
+                            localStorage.setItem("mc_heartrate", this.returnIfNotNull(this.mc_heartrate))
+                            localStorage.setItem("mc_resprate", this.returnIfNotNull(this.mc_resprate))
+                            localStorage.setItem("mc_pulseoxi", this.returnIfNotNull(this.mc_pulseoxi))
+                            localStorage.setItem("mc_bloodpressure", this.returnIfNotNull(this.mc_bloodpressure))
+                            localStorage.setItem("mc_currentmedications", this.returnIfNotNull(this.mc_currentmedications))
+                            localStorage.setItem("mc_newmedications", this.returnIfNotNull(this.mc_newmedications))
+                            localStorage.setItem("mc_viewedfor", this.returnIfNotNull(this.mc_viewedfor))
+                            localStorage.setItem("mc_diagnosedwith", this.returnIfNotNull(this.mc_diagnosedwith))
+                            localStorage.setItem("mc_treatment", this.returnIfNotNull(this.mc_treatment))
+                            localStorage.setItem("mc_prescription", this.returnIfNotNull(this.mc_prescription))
+                            localStorage.setItem("mc_summary", this.returnIfNotNull(this.mc_summary))
+                            localStorage.setItem("mc_signature", this.returnIfNotNull(this.mc_signature))
+                            localStorage.setItem("mc_fullname", this.returnIfNotNull(this.mc_fullname))
+                            localStorage.setItem("mc_date", this.returnIfNotNull(this.mc_date))
+
+
+                        }, 1000);
+
+                    }
+                    catch (err) {
+                        console.log(err);
+                        setTimeout(() => {
+
+
+                            this.loadCookies();
+
+                        }, 1);
+                    }
+                }
+
+
+            }
+
+
+        });
+        app.mount("#app");
+
+    </script>
+
+</body>
+
+</html>

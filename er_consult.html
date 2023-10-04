@@ -1,0 +1,242 @@
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+
+    <div id="app" style="margin: 20px 0px 0px 30px;">
+        <h3>PERSONAL INFORMATION</h3>
+        Medical Record Number: <input type="text" v-model="er_mrnum"><br>
+        Full Name: <input type="text" v-model="er_fullname"><br>
+        Date of Birth: <input type="date" v-model="er_dob"><br>
+        <h3>PATIENT MEASUREMENTS</h3>
+        Height: <input type="text" v-model="er_height"><br>
+        Weight: <input type="text" v-model="er_weight"><br>
+        <h3>VITALS</h3>
+        Body Temperature: <input type="text" v-model="er_bodytemp"><br>
+        Heart Rate: <input type="text" v-model="er_heartrate"><br>
+        Respiratory Rate: <input type="text" v-model="er_resprate"><br>
+        Pulse Oximetry: <input type="text" v-model="er_pulseoxi"><br>
+        Blood Pressure: <input type="text" v-model="er_bloodpressure"><br>
+        <h3>MEDICATIONS</h3>
+        Current Medications: <input type="text" v-model="er_currentmedications"><br>
+        New Medications: <input type="text" v-model="er_newmedications"><br>
+        <h3>DIAGNOSIS</h3>
+        Admitted For: <input type="text" v-model="er_admittedfor"><br>
+        Diagnosed With: <input type="text" v-model="er_diagnosedwith"><br>
+        Treatment: <input type="text" v-model="er_treatment"><br>
+        Prescription: <input type="text" v-model="er_prescription"><br>
+        <h3>SUMMARY OF CONSULTATION</h3>
+        Summary<br>
+        <textarea cols="90" rows="30" v-model="er_summary"></textarea>
+        <h3>PATIENT ADMISSION</h3>
+        Hospitalization service: <input type="text" v-model="er_hospservice"><br>
+        Duration of hospitalization: <input type="text" v-model="er_hospduration"><br>
+        Reasons for hospitalization: <input type="text" v-model="er_hospreason"><br>
+        <h3>PERSON IN CHARGE OF THE CONSULTATION</h3>
+        Full Name (Signature): <input type="text" v-model="er_signature"><br>
+        Full Name (Print): <input type="text" v-model="er_picfullname"><br>
+        Date: <input type="date" v-model="er_date"><br>
+
+
+        <button @click="generateBBCode()">Copy BBcode</button>
+        <button @click="resetAll()">Reset All</button>
+
+    </div>
+
+
+
+
+    <script>
+
+
+
+        function convertTime(dateTime, format) {
+            let result = moment(new Date(dateTime)).format(format).toUpperCase();
+
+            if (result == "INVALID DATE")
+                return ""
+
+            return result
+
+        }
+
+        const app = Vue.createApp({
+
+
+            async created() {
+
+
+            },
+
+            data() {
+                return {
+
+                    er_mrnum: this.returnIfNotNull(localStorage.getItem("er_mrnum")),
+                    er_fullname: this.returnIfNotNull(localStorage.getItem("er_fullname")),
+                    er_dob: this.returnIfNotNull(localStorage.getItem("er_dob")),
+                    er_height: this.returnIfNotNull(localStorage.getItem("er_height")),
+                    er_weight: this.returnIfNotNull(localStorage.getItem("er_weight")),
+                    er_bodytemp: this.returnIfNotNull(localStorage.getItem("er_bodytemp")),
+                    er_heartrate: this.returnIfNotNull(localStorage.getItem("er_heartrate")),
+                    er_resprate: this.returnIfNotNull(localStorage.getItem("er_resprate")),
+                    er_pulseoxi: this.returnIfNotNull(localStorage.getItem("er_pulseoxi")),
+                    er_bloodpressure: this.returnIfNotNull(localStorage.getItem("er_bloodpressure")),
+                    er_currentmedications: this.returnIfNotNull(localStorage.getItem("er_currentmedications")),
+                    er_newmedications: this.returnIfNotNull(localStorage.getItem("er_newmedications")),
+                    er_admittedfor: this.returnIfNotNull(localStorage.getItem("er_admittedfor")),
+                    er_diagnosedwith: this.returnIfNotNull(localStorage.getItem("er_diagnosedwith")),
+                    er_treatment: this.returnIfNotNull(localStorage.getItem("er_treatment")),
+                    er_prescription: this.returnIfNotNull(localStorage.getItem("er_prescription")),
+                    er_summary: this.returnIfNotNull(localStorage.getItem("er_summary")),
+                    er_hospservice: this.returnIfNotNull(localStorage.getItem("er_hospservice")),
+                    er_hospduration: this.returnIfNotNull(localStorage.getItem("er_hospduration")),
+                    er_hospreason: this.returnIfNotNull(localStorage.getItem("er_hospreason")),
+                    er_signature: this.returnIfNotNull(localStorage.getItem("er_signature")),
+                    er_picfullname: this.returnIfNotNull(localStorage.getItem("er_picfullname")),
+                    er_date: this.returnIfNotNull(localStorage.getItem("er_date")),
+
+
+                }
+            },
+
+            mounted() {
+                this.loadCookies();
+            },
+
+            methods: {
+
+
+                resetAll() {
+                    localStorage.removeItem("er_mrnum")
+                    localStorage.removeItem("er_fullname")
+                    localStorage.removeItem("er_dob")
+                    localStorage.removeItem("er_height")
+                    localStorage.removeItem("er_weight")
+                    localStorage.removeItem("er_bodytemp")
+                    localStorage.removeItem("er_heartrate")
+                    localStorage.removeItem("er_resprate")
+                    localStorage.removeItem("er_pulseoxi")
+                    localStorage.removeItem("er_bloodpressure")
+                    localStorage.removeItem("er_currentmedications")
+                    localStorage.removeItem("er_newmedications")
+                    localStorage.removeItem("er_viewedfor")
+                    localStorage.removeItem("er_diagnosedwith")
+                    localStorage.removeItem("er_treatment")
+                    localStorage.removeItem("er_prescription")
+                    localStorage.removeItem("er_summary")
+                    localStorage.removeItem("er_hospservice")
+                    localStorage.removeItem("er_hospduration")
+                    localStorage.removeItem("er_hospreason")
+                    localStorage.removeItem("er_signature")
+                    localStorage.removeItem("er_picfullname")
+                    localStorage.removeItem("er_date")
+
+                    location.reload();
+
+                },
+
+                returnIfNotNull(field) {
+
+                    if (field == null) {
+                        return "";
+                    }
+
+                    return field;
+
+                },
+
+
+                async generateBBCode() {
+
+
+                    /*
+
+                    When generating BBCode ensure that you transform the output from ptprof_gender to ptprof_sexm or ptprof_sexf, one should be [cb][/cb] and the other [cbc][/cbc]
+
+                    */
+
+
+                    var bbcode_unformatted;
+                    await fetch('er_consult.txt').then((res) => res.text()).then(data => bbcode_unformatted = data);
+
+                    var bbcode = eval(`\`${bbcode_unformatted}\``);
+
+
+
+                    navigator.clipboard.writeText(bbcode);
+
+
+
+                },
+                loadCookies: function () {
+                    try {
+                        setInterval(() => {
+
+
+                            localStorage.setItem("er_mrnum", this.returnIfNotNull(this.er_mrnum))
+                            localStorage.setItem("er_fullname", this.returnIfNotNull(this.er_fullname))
+                            localStorage.setItem("er_dob", this.returnIfNotNull(this.er_dob))
+                            localStorage.setItem("er_height", this.returnIfNotNull(this.er_height))
+                            localStorage.setItem("er_weight", this.returnIfNotNull(this.er_weight))
+                            localStorage.setItem("er_bodytemp", this.returnIfNotNull(this.er_bodytemp))
+                            localStorage.setItem("er_heartrate", this.returnIfNotNull(this.er_heartrate))
+                            localStorage.setItem("er_resprate", this.returnIfNotNull(this.er_resprate))
+                            localStorage.setItem("er_pulseoxi", this.returnIfNotNull(this.er_pulseoxi))
+                            localStorage.setItem("er_bloodpressure", this.returnIfNotNull(this.er_bloodpressure))
+                            localStorage.setItem("er_currentmedications", this.returnIfNotNull(this.er_currentmedications))
+                            localStorage.setItem("er_newmedications", this.returnIfNotNull(this.er_newmedications))
+                            localStorage.setItem("er_viewedfor", this.returnIfNotNull(this.er_viewedfor))
+                            localStorage.setItem("er_diagnosedwith", this.returnIfNotNull(this.er_diagnosedwith))
+                            localStorage.setItem("er_treatment", this.returnIfNotNull(this.er_treatment))
+                            localStorage.setItem("er_prescription", this.returnIfNotNull(this.er_prescription))
+                            localStorage.setItem("er_summary", this.returnIfNotNull(this.er_summary))
+                            localStorage.setItem("er_hospservice", this.returnIfNotNull(this.er_hospservice))
+                            localStorage.setItem("er_hospduration", this.returnIfNotNull(this.er_hospduration))
+                            localStorage.setItem("er_hospreason", this.returnIfNotNull(this.er_hospreason))
+                            localStorage.setItem("er_signature", this.returnIfNotNull(this.er_signature))
+                            localStorage.setItem("er_picfullname", this.returnIfNotNull(this.er_picfullname))
+                            localStorage.setItem("er_date", this.returnIfNotNull(this.er_date))
+
+                        }, 1000);
+
+                    }
+                    catch (err) {
+                        console.log(err);
+                        setTimeout(() => {
+
+
+                            this.loadCookies();
+
+                        }, 1);
+                    }
+                }
+
+
+            }
+
+
+        });
+        app.mount("#app");
+
+    </script>
+
+</body>
+
+</html>

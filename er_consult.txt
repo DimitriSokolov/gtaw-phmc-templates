@@ -1,0 +1,96 @@
+[divbox=white] [center] [img]https://i.imgur.com/TvmpR4O.png[/img] [/center] [/divbox]
+[divbox=lightgrey][size=150]
+
+[center][b]DEPARTMENT OF EMERGENCY MEDICINE[/b]
+[color=#800000][b]EMERGENCY CONSULTATION[/b][/color][/center][/size]
+
+[/divbox]
+
+[divbox=lightgrey][b]SECTION 0: PERSONAL INFORMATION[/b][/divbox]
+[divbox=white][table][tr][td][b]0.1[/b] Identifying
+[/td][td]
+[b]Medical Record Number:[/b] ${this.er_mrnum}
+[b]Full Name:[/b] ${this.er_fullname}
+[b]Date Of Birth:[/b] ${moment(new Date(this.er_dob)).format("DD/MMM/YYYY").toUpperCase()}
+
+[/table][/divbox]
+
+[divbox=lightgrey][b]SECTION 1: PATIENT MEASUREMENTS[/b][/divbox]
+[divbox=white][table][tr][td][b]1.1[/b] Height[/td][td]
+${this.er_height}
+
+[tr][td][b]1.2[/b] Weight[/td][td]
+${this.er_weight}
+
+[/table][/divbox]
+
+[divbox=lightgrey][b]SECTION 2: VITALS[/b][/divbox]
+[divbox=white][table][tr][td][b]2.1[/b] Body Temperature[/td][td]
+${this.er_bodytemp}
+
+[tr][td][b]2.2[/b] Heart Rate[/td][td]
+${this.er_heartrate}
+
+[tr][td][b]2.3[/b] Respiration Rate[/td][td]
+${this.er_resprate}
+
+[tr][td][b]2.4[/b] Pulse Oximetry[/td][td]
+${this.er_pulseoxi}
+
+[tr][td][b]2.5[/b] Blood Pressure[/td][td]
+${this.er_bloodpressure}
+
+[/table][/divbox]
+
+[divbox=lightgrey][b]SECTION 3: MEDICATIONS[/b][/divbox]
+[divbox=white][table][tr][td][b]3.1[/b] Current Medications[/td][td]
+${this.er_currentmedications}
+
+[tr][td][b]3.2[/b] New Medications[/td][td]
+${this.er_newmedications}
+
+[/table][/divbox]
+
+[divbox=lightgrey][b]SECTION 4: DIAGNOSIS[/divbox]
+[divbox=white][table]
+
+[tr][td][b]4.1[/b] Admitted For[/td][td]
+${this.er_admittedfor}
+
+[tr][td][b]4.2[/b] Diagnosed With[/td][td]
+${this.er_diagnosedwith}
+
+[tr][td][b]4.3[/b] Treatment[/td][td]
+${this.er_treatment}
+
+[tr][td][b]4.4[/b] Prescription[/td][td]
+${this.er_prescription}
+
+[/table][/divbox]
+
+[divbox=lightgrey][b]SECTION 5: SUMMARY OF CONSULTATION[/b][/divbox]
+[divbox=white][list=none]
+
+${this.er_summary}
+
+[/divbox]
+
+[divbox=lightgrey][b]SECTION 6: PATIENT ADMISSION [i](if required)[/i][/divbox]
+[divbox=white][table]
+
+[tr][td][b]6.1[/b] Hospitalization service[/td][td]
+${this.er_hospservice}
+
+[tr][td][b]6.2[/b] Duration of hospitalization[/td][td]
+${this.er_hospduration}
+
+[tr][td][b]6.3[/b] Reasons for hospitalization[/td][td]
+${this.er_hospreason}
+
+[/table][/divbox]
+
+[divbox=lightgrey][b]SECTION 7: PERSON IN CHARGE OF THE CONSULTATION[/b][/divbox]
+
+[divbox=white][table][tr][td][b]7.1[/b] Full Name (Signature)[/td][td]${this.er_signature}
+[tr][td][b]7.2[/b] Full Name (Print)[/td][td]${this.er_picfullname}
+[tr][td][b]7.3[/b] Date[/td][td]${moment(new Date(this.er_date)).format("DD/MMM/YYYY").toUpperCase()}[/table][/divbox]
